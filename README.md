@@ -2,13 +2,7 @@
 
 This Action generates the .pot, .po, and .mo files for your WordPress plugin or theme repository.
 
-## Configuration
-### Required secrets
-* `GITHUB_TOKEN`
-
-[Secrets are set in your repository settings](https://help.github.com/en/actions/automating-your-workflow-with-github-actions/creating-and-using-encrypted-secrets). They cannot be viewed once stored.
-
-### Other optional configuration
+## Optional configuration
 
 | Key | Default | Description |
 | --- | ------- | ----------- |
@@ -43,11 +37,9 @@ jobs:
   generate-translations:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v4
     - name: WordPress POT/PO/MO Generator
-      uses: strangerstudios/action-wp-pot-po-mo-generator@main
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      uses: Libresoft-UK/action-wp-pot-po-mo-generator@main
 ```
 
 ### Customize certain options
@@ -63,15 +55,13 @@ jobs:
   generate-translations:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v4
     - name: WordPress POT/PO/MO Generator
-      uses: strangerstudios/action-wp-pot-po-mo-generator@main
+      uses: Libresoft-UK/action-wp-pot-po-mo-generator@main
       with:
         destination_path: './languages'
         slug: 'SLUG_OF_PLUGIN_OR_THEME'
         text_domain: 'TEXT_DOMAIN_OF_PLUGIN_OR_THEME'
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 ```
 
 ## Example Workflow File (On Demand)
@@ -85,15 +75,13 @@ jobs:
   generate-translations:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v4
     - name: WordPress POT/PO/MO Generator
-      uses: strangerstudios/action-wp-pot-po-mo-generator@main
+      uses: Libresoft-UK/action-wp-pot-po-mo-generator@main
       with:
         destination_path: './languages'
         slug: 'SLUG_OF_PLUGIN_OR_THEME'
         text_domain: 'TEXT_DOMAIN_OF_PLUGIN_OR_THEME'
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 ```
 
 ## Credits
