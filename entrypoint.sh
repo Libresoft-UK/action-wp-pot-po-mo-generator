@@ -71,12 +71,6 @@ else
 	WP_PPM_HEADERS=$INPUT_HEADERS
 fi
 
-if [ -z "$PAT_TOKEN" ]; then
-	WP_PPM_TOKEN=$GITHUB_TOKEN
-else
-	WP_PPM_TOKEN=$PAT_TOKEN
-fi
-
 # Define file paths.
 WP_PPM_POT_PATH="$WP_PPM_DESTINATION_PATH/$WP_PPM_TEXT_DOMAIN.pot"
 WP_PPM_PO_PATH="$WP_PPM_DESTINATION_PATH/$WP_PPM_TEXT_DOMAIN.po"
@@ -343,38 +337,6 @@ if [ "$WP_PPM_GENERATE_LANG_PACKS" != "" ]; then
 else
 	echo "⏭ Skipping language pack generation"
 fi
-
-echo "::endgroup::"
-
-echo "::group::Doing Git things with Git"
-
-# Commit the changes.
-echo "🔼 Committing and pushing change(s) to repository"
-
-echo ""
-echo "== Running: git commit ================="
-echo ""
-
-git commit --allow-empty -m "🔄 Regenerate translation files"
-
-echo ""
-echo "== Running: git push ==================="
-echo ""
-
-if [ "$WP_PPM_IS_FORK" == true ]; then
-  # Handle forks.
-	git config credential.https://github.com/.helper "! f() { echo username=x-access-token; echo password=$WP_PPM_TOKEN; };f"
-	git push "https://x-access-token:$WP_PPM_TOKEN@github.com/$WP_PPM_REPO_NAME"
-else
-  # Handle normal checkouts.
-	git push "https://x-access-token:$GITHUB_TOKEN@github.com/$WP_PPM_REPO_NAME"
-fi
-
-echo ""
-echo "========================================"
-echo ""
-
-echo "✅ All changes committed and pushed to repository"
 
 echo "::endgroup::"
 
